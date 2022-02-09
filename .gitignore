@@ -1,0 +1,23 @@
+.*.sw*
+.#*
+*.log
+*/storage/
+media
+*.pyc
+*.mo
+.pem
+.coverage
+.cache
+.\#*
+.project
+node_modules
+.idea/
+.idea/*
+.vscode/
+*/package-lock.json
+.firebaserc
+/.idea/
+/APIDocument/apidoc/~$(Vietluck) API Document.xlsx
+/APIDocument/public/
+/.scannerwork/
+.env*

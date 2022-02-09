@@ -1,0 +1,7 @@
+{
+	"database": "tinasoft_internal",
+	"port": 3306,
+	"host": "localhost",
+	"user": "root",
+	"password": ""
+}
