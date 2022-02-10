@@ -17,8 +17,6 @@ require('./src/database/overtime_salary')
 require('./src/database/project_salary')
 require('./src/database/total_salary_month')
 
-var indexRouter = require('./src/routes/index');
-var usersRouter = require('./src/routes/users');
 
 var app = express();
 
@@ -32,8 +30,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//route
+var routes = require('./src/routes/index');
+app.use('/api/v1', routes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

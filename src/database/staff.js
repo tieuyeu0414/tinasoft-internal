@@ -45,6 +45,7 @@ const Staff = db.sequelize.define('staff', {
         allowNull: false,
         unique: true,
         validate: {
+            is: /(0[3|5|7|8|9])+([0-9]{8})\b/g,
             len: {
                 args: [10, 12],
                 msg: 'Phone display must be between 10 and 12 characters in length'
@@ -79,7 +80,8 @@ const Staff = db.sequelize.define('staff', {
     },
     daysAllowedLeave: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     }
 })
 
