@@ -18,7 +18,6 @@ require('./src/database/project_salary')
 require('./src/database/total_salary_month')
 
 
-
 var app = express();
 
 // view engine setup
