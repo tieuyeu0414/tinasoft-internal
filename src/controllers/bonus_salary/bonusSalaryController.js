@@ -1,7 +1,7 @@
-const Event = require("./../../models/events")
+const BonusSalary = require("./../../models/bonusSalary")
 
-async function getDataEvent(req, res){
-    const data = await Event.getDataEvent()
+async function getDataBonusSalary(req, res){
+    const data = await BonusSalary.getDataBonusSalary()
     .then(data => {
        res.status(200).json({msg: "get data success",
         data
@@ -13,15 +13,15 @@ async function getDataEvent(req, res){
     })
 }
 
-async function insertEvent(req, res) {
-    let {title, startDay, endDay, content} = req.body;
-    let eventData = {
-        title,
-        startDay, 
-        endDay,
-        content
+async function insertBonusSalary(req, res) {
+    let {idStaff, reason, date, salary} = req.body;
+    let BonusSalaryData = {
+        idStaff,
+        reason, 
+        date,
+        salary
     }
-    const data = await Event.insertEvent(eventData)
+    const data = await BonusSalary.insertBonusSalary(BonusSalaryData)
     .then(data => {
        res.status(200).json({msg: "insert success"
     });
@@ -33,10 +33,10 @@ async function insertEvent(req, res) {
 }
 
 
-async function deleteEvent(req, res) {
+async function deleteBonusSalary(req, res) {
     try {
         let id = req.params.id;
-        await Event.deleteEvent(id)
+        await BonusSalary.deleteBonusSalary(id)
         .then(data => {
             res.status(200).json({msg: "delete success"
             });
@@ -51,10 +51,10 @@ async function deleteEvent(req, res) {
 }
 
 
-async function editEvent(req, res) {
+async function editBonusSalary(req, res) {
     try {
         let id = req.params.id;
-        await Event.editEvent(req.body, id, req, res)
+        await BonusSalary.editBonusSalary(req.body, id, req, res)
             .then(data => {
                 res.status(200).json({
                     msg: "edit success"
@@ -71,8 +71,8 @@ async function editEvent(req, res) {
 }
 
 module.exports = {
-    getDataEvent,
-    insertEvent,
-    deleteEvent,
-    editEvent
+    getDataBonusSalary,
+    insertBonusSalary,
+    deleteBonusSalary,
+    editBonusSalary
 }

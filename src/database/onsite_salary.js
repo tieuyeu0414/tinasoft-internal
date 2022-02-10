@@ -17,7 +17,7 @@ const Onsite_salary = db.sequelize.define('onsite_salary', {
         allowNull: false,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
 })

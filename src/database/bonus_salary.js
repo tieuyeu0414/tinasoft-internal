@@ -17,7 +17,7 @@ const Bonus_salary = db.sequelize.define('bonus_salary', {
         allowNull: true,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     salary: {

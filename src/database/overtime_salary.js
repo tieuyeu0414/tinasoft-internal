@@ -17,7 +17,7 @@ const Overtime_salary = db.sequelize.define('overtime_salary', {
         allowNull: false,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     hour: {

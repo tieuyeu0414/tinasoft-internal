@@ -18,7 +18,7 @@ const Deduction_hour_late = db.sequelize.define('deduction_hour_late', {
         defaultValue: 0
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     deduction_salary: {

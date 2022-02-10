@@ -12,12 +12,8 @@ const Project_salary = db.sequelize.define('project_salary', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    reason: {
+    name_project: {
         type: Sequelize.TEXT,
-        allowNull: true,
-    },
-    date: {
-        type: Sequelize.DATE,
         allowNull: false,
     },
     salary: {

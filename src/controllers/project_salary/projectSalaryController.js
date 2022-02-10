@@ -1,7 +1,7 @@
-const Event = require("./../../models/events")
+const ProjectSalary = require("./../../models/projectSalary")
 
-async function getDataEvent(req, res){
-    const data = await Event.getDataEvent()
+async function getDataProjectSalary(req, res){
+    const data = await ProjectSalary.getDataProjectSalary()
     .then(data => {
        res.status(200).json({msg: "get data success",
         data
@@ -13,15 +13,14 @@ async function getDataEvent(req, res){
     })
 }
 
-async function insertEvent(req, res) {
-    let {title, startDay, endDay, content} = req.body;
-    let eventData = {
-        title,
-        startDay, 
-        endDay,
-        content
+async function insertProjectSalary(req, res) {
+    let {idStaff, name_project, salary} = req.body;
+    let ProjectSalaryData = {
+        idStaff,
+        name_project, 
+        salary
     }
-    const data = await Event.insertEvent(eventData)
+    const data = await ProjectSalary.insertProjectSalary(ProjectSalaryData)
     .then(data => {
        res.status(200).json({msg: "insert success"
     });
@@ -33,10 +32,10 @@ async function insertEvent(req, res) {
 }
 
 
-async function deleteEvent(req, res) {
+async function deleteProjectSalary(req, res) {
     try {
         let id = req.params.id;
-        await Event.deleteEvent(id)
+        await ProjectSalary.deleteProjectSalary(id)
         .then(data => {
             res.status(200).json({msg: "delete success"
             });
@@ -51,10 +50,10 @@ async function deleteEvent(req, res) {
 }
 
 
-async function editEvent(req, res) {
+async function editProjectSalary(req, res) {
     try {
         let id = req.params.id;
-        await Event.editEvent(req.body, id, req, res)
+        await ProjectSalary.editProjectSalary(req.body, id, req, res)
             .then(data => {
                 res.status(200).json({
                     msg: "edit success"
@@ -71,8 +70,8 @@ async function editEvent(req, res) {
 }
 
 module.exports = {
-    getDataEvent,
-    insertEvent,
-    deleteEvent,
-    editEvent
+    getDataProjectSalary,
+    insertProjectSalary,
+    deleteProjectSalary,
+    editProjectSalary
 }

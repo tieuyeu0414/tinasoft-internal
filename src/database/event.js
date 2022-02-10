@@ -12,11 +12,11 @@ const Event = db.sequelize.define('event', {
         allowNull: false,
     },
     startDay: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     endDay: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     content: {

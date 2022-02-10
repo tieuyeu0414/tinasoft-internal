@@ -1,7 +1,7 @@
-const Event = require("./../../models/events")
+const DeductionHourLate = require("./../../models/deduction_hour_late")
 
-async function getDataEvent(req, res){
-    const data = await Event.getDataEvent()
+async function getDataDeductionHourLate(req, res){
+    const data = await DeductionHourLate.getDataDeductionHourLate()
     .then(data => {
        res.status(200).json({msg: "get data success",
         data
@@ -13,15 +13,15 @@ async function getDataEvent(req, res){
     })
 }
 
-async function insertEvent(req, res) {
-    let {title, startDay, endDay, content} = req.body;
-    let eventData = {
-        title,
-        startDay, 
-        endDay,
-        content
+async function insertDeductionHourLate(req, res) {
+    let {idStaff, hour_late_work, date, deduction_salary} = req.body;
+    let deductionHourLateData = {
+        idStaff,
+        hour_late_work, 
+        date,
+        deduction_salary
     }
-    const data = await Event.insertEvent(eventData)
+    const data = await DeductionHourLate.insertDeductionHourLate(deductionHourLateData)
     .then(data => {
        res.status(200).json({msg: "insert success"
     });
@@ -33,10 +33,10 @@ async function insertEvent(req, res) {
 }
 
 
-async function deleteEvent(req, res) {
+async function deleteDeductionHourLate(req, res) {
     try {
         let id = req.params.id;
-        await Event.deleteEvent(id)
+        await DeductionHourLate.deleteDeductionHourLate(id)
         .then(data => {
             res.status(200).json({msg: "delete success"
             });
@@ -51,10 +51,10 @@ async function deleteEvent(req, res) {
 }
 
 
-async function editEvent(req, res) {
+async function editDeductionHourLate(req, res) {
     try {
         let id = req.params.id;
-        await Event.editEvent(req.body, id, req, res)
+        await DeductionHourLate.editDeductionHourLate(req.body, id, req, res)
             .then(data => {
                 res.status(200).json({
                     msg: "edit success"
@@ -71,8 +71,8 @@ async function editEvent(req, res) {
 }
 
 module.exports = {
-    getDataEvent,
-    insertEvent,
-    deleteEvent,
-    editEvent
+    getDataDeductionHourLate,
+    insertDeductionHourLate,
+    deleteDeductionHourLate,
+    editDeductionHourLate
 }

@@ -13,11 +13,11 @@ const Letter_leave = db.sequelize.define('letter_leave', {
         allowNull: false,
     },
     startDay: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     endDay: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     reason: {

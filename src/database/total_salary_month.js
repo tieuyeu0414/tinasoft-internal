@@ -13,7 +13,7 @@ const Total_salary_month = db.sequelize.define('total_salary_month', {
         allowNull: false,
     },
     date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
     },
     total_base_salary: {

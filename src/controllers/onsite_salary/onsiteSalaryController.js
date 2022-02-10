@@ -1,7 +1,7 @@
-const Event = require("./../../models/events")
+const OnsiteSalary = require("./../../models/onsitesSalary")
 
-async function getDataEvent(req, res){
-    const data = await Event.getDataEvent()
+async function getDataOnsiteSalary(req, res){
+    const data = await OnsiteSalary.getDataOnsiteSalary()
     .then(data => {
        res.status(200).json({msg: "get data success",
         data
@@ -13,15 +13,14 @@ async function getDataEvent(req, res){
     })
 }
 
-async function insertEvent(req, res) {
-    let {title, startDay, endDay, content} = req.body;
-    let eventData = {
-        title,
-        startDay, 
-        endDay,
-        content
+async function insertOnsiteSalary(req, res) {
+    let {idStaff, onsite_place, date} = req.body;
+    let onsiteSalaryData = {
+        idStaff,
+        onsite_place, 
+        date
     }
-    const data = await Event.insertEvent(eventData)
+    const data = await OnsiteSalary.insertOnsiteSalary(onsiteSalaryData)
     .then(data => {
        res.status(200).json({msg: "insert success"
     });
@@ -33,10 +32,10 @@ async function insertEvent(req, res) {
 }
 
 
-async function deleteEvent(req, res) {
+async function deleteOnsiteSalary(req, res) {
     try {
         let id = req.params.id;
-        await Event.deleteEvent(id)
+        await OnsiteSalary.deleteOnsiteSalary(id)
         .then(data => {
             res.status(200).json({msg: "delete success"
             });
@@ -51,10 +50,10 @@ async function deleteEvent(req, res) {
 }
 
 
-async function editEvent(req, res) {
+async function editOnsiteSalary(req, res) {
     try {
         let id = req.params.id;
-        await Event.editEvent(req.body, id, req, res)
+        await OnsiteSalary.editOnsiteSalary(req.body, id, req, res)
             .then(data => {
                 res.status(200).json({
                     msg: "edit success"
@@ -71,8 +70,8 @@ async function editEvent(req, res) {
 }
 
 module.exports = {
-    getDataEvent,
-    insertEvent,
-    deleteEvent,
-    editEvent
+    getDataOnsiteSalary,
+    insertOnsiteSalary,
+    deleteOnsiteSalary,
+    editOnsiteSalary
 }
