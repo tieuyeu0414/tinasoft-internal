@@ -1,9 +1,12 @@
 const Staff = require("../../database/staff");
 const {
+    insertAccount,
+    deleteAccount
+} = require("../../models/account");
+const {
     getDataStaff,
     insertStaff,
     editStaff,
-    deleteStaff,
     updateStatusStaff
 } = require("../../models/staffs");
 
@@ -11,14 +14,18 @@ const {
 async function getDataStaffController(req, res) {
     try {
         await getDataStaff(req, res)
-        // .then(data => {
-        //     res.status(200).json({msg: "get success"
-        //     });
-        // })
-        // .catch(e => {
-        //     console.log(e);
-        //     res.status(412).json({msg: error.message});
-        // })
+            .then(data => {
+                res.status(200).json({
+                    msg: "get success",
+                    data
+                });
+            })
+            .catch(e => {
+                console.log(e);
+                res.status(412).json({
+                    msg: error.message
+                });
+            })
     } catch (error) {
         console.log(error);
     }
@@ -36,7 +43,22 @@ async function insertStaffController(req, res) {
             })
             .catch(e => {
                 res.status(412).json({
-                    msg: error.message
+                    msg: e.message
+                });
+            })
+    } catch (error) {
+        console.log(error);
+    }
+    try {
+        await insertAccount(req.body)
+            .then(data => {
+                res.status(200).json({
+                    msg: "insert success"
+                });
+            })
+            .catch(e => {
+                res.status(412).json({
+                    msg: e.message
                 });
             })
     } catch (error) {
@@ -61,10 +83,6 @@ async function editStaffController(req, res) {
                 });
             })
 
-        // let {idStaff, email, fullName, phoneNumber, position, personId, address, birthday, idManager} = req.body;
-        //let avatar = req.file.path;
-
-
     } catch (e) {
         console.log(e);
     }
@@ -73,23 +91,36 @@ async function editStaffController(req, res) {
 
 //controller update status data staff
 async function updateStatustaffController(req, res) {
+    let id = req.params.id;
     try {
-        let id = req.params.id;
-        await updateStatusStaff(id, req.body)
-        .then(data => {
-            res.status(200).json({
-                msg: "update status success"
-            });
-        })
-        .catch(error => {
-            res.status(412).json({
-                msg: error.message
-            });
-        })
         
+        await updateStatusStaff(id, req.body)
+            .then(data => {
+                res.status(200).json({
+                    msg: "update status success"
+                });
+            })
+            .catch(error => {
+                res.status(412).json({
+                    msg: error.message
+                });
+            })
+        
+            await deleteAccount(id)
+            .then(data => {
+                res.status(200).json({
+                    msg: "delete success"
+                });
+            })
+            .catch(e => {
+                res.status(412).json({
+                    msg: e.message
+                });
+            })
     } catch (e) {
         console.log(e);
     }
+
 }
 
 module.exports = {

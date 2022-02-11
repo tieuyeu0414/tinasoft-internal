@@ -61,7 +61,7 @@ const Staff = db.sequelize.define('staff', {
         allowNull: true
     },
     birthday:{
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
     },
     email: {
