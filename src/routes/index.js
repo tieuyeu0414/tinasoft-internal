@@ -27,4 +27,7 @@ router.use('/deduction_day_off', deduction_day_off)
 const account = require('../controllers/accounts/route')
 router.use('/account', account)
 
+const total_salary_month = require('../controllers/total_salary_month/route')
+router.use('/total_salary_month', total_salary_month)
+
 module.exports = router;

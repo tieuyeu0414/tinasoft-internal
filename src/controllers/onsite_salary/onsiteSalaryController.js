@@ -13,6 +13,7 @@ async function getDataOnsiteSalary(req, res){
     })
 }
 
+
 async function insertOnsiteSalary(req, res) {
     let {idStaff, onsite_place, date} = req.body;
     let onsiteSalaryData = {

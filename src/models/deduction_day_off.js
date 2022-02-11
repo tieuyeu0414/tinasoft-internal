@@ -17,7 +17,7 @@ async function getDataDeductionDayOff(req, res){
 async function insertDeductionDayOff(data) {
     let {idStaff, day_off_work, date, deduction_salary} = data;
     try {
-        await DeductionDayOff.create({
+        await DeductionDayOff.create({  
             idStaff,
             day_off_work,
             deduction_salary,
