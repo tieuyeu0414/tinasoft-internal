@@ -24,5 +24,7 @@ router.use('/deduction_hour_late', deduction_hour_late)
 
 const deduction_day_off = require('../controllers/deduction_day_off/route')
 router.use('/deduction_day_off', deduction_day_off)
+const account = require('../controllers/accounts/route')
+router.use('/account', account)
 
 module.exports = router;
