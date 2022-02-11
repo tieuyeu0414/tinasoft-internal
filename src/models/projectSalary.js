@@ -1,4 +1,6 @@
 const ProjectSalary = require("./../database/project_salary");
+const { Op } = require("sequelize");
+
 
 async function getDataProjectSalary(req, res){
     let data = []
@@ -11,6 +13,37 @@ async function getDataProjectSalary(req, res){
     } catch (e) {
         console.log(e);
     }
+    return data
+}
+
+async function getDataProjectSalaryMonth(req, res){
+    let {idStaff, date} = req.body;
+    let data = {
+        total_bonus_salary:0
+    }
+    //tach date ra chi lay thang va nam de lay du lieu luong theo thang
+    const a = date.substr(0, 2)
+    const b = date.substr(6)
+    const condition = b + "-" + a
+
+
+    await ProjectSalary.findAll({
+        where:{
+            [Op.and]: [
+                { idStaff: idStaff },
+                { createdAt: {
+                    [Op.substring]:condition
+                } }
+            ]
+        }
+    })
+    .then(result => {
+        const salary= result.map(ele => ele.salary)
+        data.total_project_salary = salary[0]
+    })
+    .catch(error => {
+        res.status(412).json({msg: error.message});
+    });
     return data
 }
 
@@ -86,5 +119,6 @@ module.exports = {
     getDataProjectSalary,
     insertProjectSalary,
     deleteProjectSalary,
-    editProjectSalary
+    editProjectSalary,
+    getDataProjectSalaryMonth
 }

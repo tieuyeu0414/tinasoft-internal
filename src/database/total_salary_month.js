@@ -46,6 +46,11 @@ const Total_salary_month = db.sequelize.define('total_salary_month', {
         allowNull: false,
         defaultValue: 0
     }, 
+    total_deduction_salary: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    }, 
 })
 
 Staff.hasMany(Total_salary_month, {foreignKey: 'idStaff', sourceKey: 'idStaff'});
