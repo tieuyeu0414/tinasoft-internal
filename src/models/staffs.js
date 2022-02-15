@@ -1,5 +1,6 @@
 const Staff = require('../database/staff')
-const Account = require('../database/account')
+const bcrypt = require('bcrypt');
+// const Account = require('../database/account');
 
 //get data staff
 async function getDataStaff(req, res) {
@@ -7,11 +8,6 @@ async function getDataStaff(req, res) {
     try {
         await Staff.findAll({
             attributes: ['phoneNumber', 'email', 'address', 'birthday', 'personId', 'fullName', 'avatar', 'position'],
-            include: [
-                {
-                    model: Account, attributes:['username']
-                }
-            ],
         })
         .then(result => data = result)
         .catch(error => {
@@ -29,6 +25,7 @@ async function insertStaff(data) {
     await Staff.create({
         idStaff: data.idStaff,
         email: data.email,
+        password: data.password,
         fullName: data.fullName,
         phoneNumber: data.phoneNumber,
         position: data.position,
@@ -85,9 +82,32 @@ async function updateStatusStaff(id, data) {
     })
 }
 
+
+//edit data account
+async function editAccount(data, id, req, res) {
+
+    let getAcount = await Staff.findByPk(id);
+    if (getAcount === null) {
+        return res.status(200).json({
+            msg: "error"
+        });
+    } else {
+        await bcrypt.hash(data.password, 10).
+        then((hash) => {Staff.update({
+            password: hash
+        }, {
+            where: {
+                id: id
+            }
+        })
+    })
+    }
+}
+
 module.exports = {
     getDataStaff,
     insertStaff,
     editStaff,
-    updateStatusStaff
+    updateStatusStaff,
+    editAccount
 }

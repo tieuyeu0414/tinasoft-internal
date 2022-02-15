@@ -1,6 +1,9 @@
 const Sequelize = require("sequelize");
 const db = require('./base/mysql');
+const bcrypt = require('bcrypt');
 
+
+const date = new Date()
 const Staff = db.sequelize.define('staff', {
     id: {
         type: Sequelize.INTEGER,
@@ -64,11 +67,6 @@ const Staff = db.sequelize.define('staff', {
         type: Sequelize.DATEONLY,
         allowNull: false
     },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-    },
     status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
@@ -81,8 +79,62 @@ const Staff = db.sequelize.define('staff', {
     daysAllowedLeave: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1
+    },
+    date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+        defaultValue: date 
+    },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            is: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+            len: {
+                args: [6],
+                msg: 'error password'
+            }
+        }
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+            len: {
+                args: [6],
+                msg: 'error password'
+            }
+        }
+    },
+}, {
+    hooks: {
+        beforeCreate: async (user) => {
+            if (user.password) {
+                const salt = await bcrypt.genSaltSync(10, 'a');
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        },
+        beforeUpdate: async (user) => {
+            if (user.password) {
+                const salt = await bcrypt.genSaltSync(10, 'a');
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        }
+    },
+    instanceMethods: {
+        validPassword: (password) => {
+            return bcrypt.compareSync(password, this.password);
+        }
     }
-})
+});
+
+Staff.prototype.comparePassword = function (plaintextPassword) {
+    return bcrypt.compareSync(plaintextPassword, this.password);
+};
+
+
 
 module.exports = Staff

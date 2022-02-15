@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const db = require('./base/mysql');
 const Staff = require("./staff");
 
-const Letter_leave = db.sequelize.define('letter_leave', {
+const LetterLeave = db.sequelize.define('letter_leave', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -31,9 +31,14 @@ const Letter_leave = db.sequelize.define('letter_leave', {
         comment: "1:đang đợi duyệt - 2:được chấp thuận - 3:bị từ chối",
         defaultValue: 1
     },
+    quantity_day:{
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0
+    }
 })
 
-Staff.hasMany(Letter_leave, {foreignKey: 'idStaff', sourceKey: 'idStaff'});
-Letter_leave.belongsTo(Staff, {foreignKey: 'idStaff', targetKey: 'idStaff'});
+Staff.hasMany(LetterLeave, {foreignKey: 'idStaff', sourceKey: 'idStaff'});
+LetterLeave.belongsTo(Staff, {foreignKey: 'idStaff', targetKey: 'idStaff'});
 
-module.exports = Letter_leave
+module.exports = LetterLeave

@@ -1,13 +1,9 @@
-const Staff = require("../../database/staff");
-const {
-    insertAccount,
-    deleteAccount
-} = require("../../models/account");
 const {
     getDataStaff,
     insertStaff,
     editStaff,
-    updateStatusStaff
+    updateStatusStaff,
+    editAccount
 } = require("../../models/staffs");
 
 //controller get data staff
@@ -36,21 +32,6 @@ async function getDataStaffController(req, res) {
 async function insertStaffController(req, res) {
     try {
         await insertStaff(req.body)
-            .then(data => {
-                res.status(200).json({
-                    msg: "insert success"
-                });
-            })
-            .catch(e => {
-                res.status(412).json({
-                    msg: e.message
-                });
-            })
-    } catch (error) {
-        console.log(error);
-    }
-    try {
-        await insertAccount(req.body)
             .then(data => {
                 res.status(200).json({
                     msg: "insert success"
@@ -105,27 +86,38 @@ async function updateStatustaffController(req, res) {
                     msg: error.message
                 });
             })
-        
-            await deleteAccount(id)
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+
+//controller edit data account
+async function editAccountController(req, res) {
+    try {
+        let id = req.params.id;
+        await editAccount(req.body, id, req, res)
             .then(data => {
                 res.status(200).json({
-                    msg: "delete success"
+                    msg: "edit success"
                 });
             })
-            .catch(e => {
+            .catch(error => {
                 res.status(412).json({
-                    msg: e.message
+                    msg: error.message
                 });
             })
     } catch (e) {
         console.log(e);
     }
-
 }
+
 
 module.exports = {
     getDataStaffController,
     insertStaffController,
     editStaffController,
-    updateStatustaffController
+    updateStatustaffController,
+    editAccountController
 }
