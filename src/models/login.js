@@ -61,9 +61,17 @@ async function checkLogin(req, res, next){
     }
 }
 
-
+async function checkRoleAdmin(req, res, next){
+    const position = req.data.position;
+    if( position === '4') {
+        next()
+    } else {
+        res.json('NOT PERMISSION');
+    }
+}
 
 module.exports = {
     login,
     checkLogin,
+    checkRoleAdmin
 }
