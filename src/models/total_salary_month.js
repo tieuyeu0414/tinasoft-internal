@@ -15,10 +15,11 @@ async function getDataTotalSalaryMonth(req, res){
 }
 
 async function insertTotalSalaryMonth(data) {
-    let {idStaff, total_base_salary, total_onsite_salary, total_overtime_salary, total_Manage_salary, total_bonus_salary, total_project_salary, total_deduction_salary} = data;
+    let {idStaff,date, total_base_salary, total_onsite_salary, total_overtime_salary, total_Manage_salary, total_bonus_salary, total_project_salary, total_deduction_salary} = data;
     try {
         await TotalSalaryMonth.create({
             idStaff,
+            date,
             total_base_salary,
             total_onsite_salary,
             total_overtime_salary,

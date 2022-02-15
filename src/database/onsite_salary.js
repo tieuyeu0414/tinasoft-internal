@@ -20,6 +20,11 @@ const Onsite_salary = db.sequelize.define('onsite_salary', {
         type: Sequelize.DATEONLY,
         allowNull: false,
     },
+    salary: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    }
 })
 
 Staff.hasMany(Onsite_salary, {foreignKey: 'idStaff', sourceKey: 'idStaff'});
