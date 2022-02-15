@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./src/database/base/mysql');
 require('./src/database/staff')
-require('./src/database/account')
 require('./src/database/bonus_salary')
 require('./src/database/days_allowed_leave')
 require('./src/database/deduction_day_off')

@@ -5,6 +5,7 @@ const staffAPI = require('./staffController')
 route.get('/', staffAPI.getDataStaffController);
 route.post('/insert', staffAPI.insertStaffController);
 route.put('/edit/:id', staffAPI.editStaffController);
+route.put('/edit_account/:id', staffAPI.editAccountController);
 route.put('/update_status/:id', staffAPI.updateStatustaffController);
 
 
