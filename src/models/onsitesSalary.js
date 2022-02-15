@@ -15,34 +15,41 @@ async function getDataOnsiteSalary(req, res){
     return data
 }
 
-// async function getDataOnsiteSalaryMonth(req, res){
-//     let {idStaff, date} = req.body;
+async function getDataOnsiteSalaryMonth(req, res){
+    let {idStaff, date} = req.body;
+    let data = {
+        total_onsite_salary:0
+    }
+    //tach date ra chi lay thang va nam de lay du lieu luong theo thang
+    const a = date.substr(0, 2)
+    const b = date.substr(6)
+    const condition = b + "-" + a
 
-//     //tach date ra chi lay thang va nam de lay du lieu luong theo thang
-//     const a = date.substr(0, 2)
-//     const b = date.substr(6)
-//     const condition = b + "-" + a
-//     console.log(condition)
 
+    await OnsiteSalary.findAll({
+        where:{
+            [Op.and]: [
+                { idStaff: idStaff },
+                { date: {
+                    [Op.substring]:condition
+                } }
+            ]
+        }
+    })
+    .then(result => {
+        const onsiteSalary= result.map(ele => ele.salary)
+        totalOnsiteSalary = onsiteSalary.reduce(function (previousValue, currentValue) {
+            return previousValue + currentValue
+        }, 0)
 
-//     let data = []
-//     await OnsiteSalary.findAll({
-//         where:{
-//             [Op.and]: [
-//                 { idStaff: idStaff },
-//                 { date: {
-//                     [Op.substring]:condition
-//                 } }
-//             ]
-            
-//         }
-//     })
-//     .then(result => data = result)
-//     .catch(error => {
-//         res.status(412).json({msg: error.message});
-//     });
-//     return data
-// }
+       
+        data.total_onsite_salary = totalOnsiteSalary
+    })
+    .catch(error => {
+        res.status(412).json({msg: error.message});
+    });
+    return data
+}
 
 
 async function insertOnsiteSalary(data) {
@@ -118,5 +125,5 @@ module.exports = {
     insertOnsiteSalary,
     deleteOnsiteSalary,
     editOnsiteSalary,
-    // getDataOnsiteSalaryMonth
+    getDataOnsiteSalaryMonth
 }
