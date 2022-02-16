@@ -6,7 +6,7 @@ async function getDataLetterLeave(req, res) {
     let data = []
     try {
         await LetterLeave.findAll({
-            attributes: ['startDay', 'endDay', 'reason', 'status'],
+            attributes: ['startDay', 'endDay', 'reason', 'status', 'reasonRefuse'],
         })
         .then(result => data = result)
         .catch(error => {
@@ -27,6 +27,7 @@ async function insertLetterLeave(data) {
         endDay: data.endDay,
         reason: data.reason,
         quantity_day: data.quantity_day,
+        reasonRefuse : data.reasonRefuse
         // status: data.status
     })
 }
@@ -62,7 +63,7 @@ async function getMonthLetterLeave(req, res){
     let data = []
     try {
         await LetterLeave.findOne({
-            attributes: ['startDay', 'endDay', 'reason', 'status'],
+            attributes: ['startDay', 'endDay', 'reason', 'status', 'reasonRefuse'],
             where: {
                 [Op.and]: [
                     {idStaff: 1},

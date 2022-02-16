@@ -24,6 +24,10 @@ const LetterLeave = db.sequelize.define('letter_leave', {
         type: Sequelize.TEXT,
         allowNull: true,
     },
+    reasonRefuse: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+    },
     status: {
         type: Sequelize.ENUM,
         allowNull: false,

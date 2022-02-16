@@ -24,6 +24,11 @@ const Onsite_salary = db.sequelize.define('onsite_salary', {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
+    },
+    status: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
     }
 })
 

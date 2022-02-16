@@ -25,6 +25,11 @@ const Overtime_salary = db.sequelize.define('overtime_salary', {
         allowNull: false,
         defaultValue: 0
     },
+    status: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
 })
 
 Staff.hasMany(Overtime_salary, {foreignKey: 'idStaff', sourceKey: 'idStaff'});
