@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require('./base/mysql');
 const bcrypt = require('bcrypt');
+const config = require("../../config/config").admin;
 
 
 const date = new Date()
@@ -29,8 +30,8 @@ const Staff = db.sequelize.define('staff', {
     position: {
         type: Sequelize.ENUM,
         allowNull: false,
-        values: ['1', '2', '3'],
-        comment: "1:giám đốc - 2:nhân viên chính thức - 3:nhân viên parttime"
+        values: ['1', '2', '3', '4'],
+        comment: "1:giám đốc - 2:nhân viên chính thức - 3:nhân viên parttime - 4:admin"
     },
     personId: {
         type: Sequelize.STRING,
@@ -63,7 +64,7 @@ const Staff = db.sequelize.define('staff', {
         type: Sequelize.STRING,
         allowNull: true
     },
-    birthday:{
+    birthday: {
         type: Sequelize.DATEONLY,
         allowNull: false
     },
@@ -78,13 +79,12 @@ const Staff = db.sequelize.define('staff', {
     },
     daysAllowedLeave: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         defaultValue: 1
     },
     date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
-        defaultValue: date 
+        defaultValue: date
     },
     email: {
         type: Sequelize.STRING,
@@ -101,13 +101,14 @@ const Staff = db.sequelize.define('staff', {
     password: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-            is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-            len: {
-                args: [6],
-                msg: 'error password'
-            }
-        }
+        // validate: {
+        //     is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+        //     len: {
+        //         args: [6],
+        //         msg: 'error password'
+        //     }
+        // },
+        defaultValue: '123456'
     },
 }, {
     hooks: {
@@ -136,5 +137,24 @@ Staff.prototype.comparePassword = function (plaintextPassword) {
 };
 
 
+Staff.sync()
+    .then(() => {
+        Staff.findOrCreate({
+            where: {
+                position: 4
+            },
+            defaults: {
+                email: config.email,
+                // password: config.password,
+                idStaff: config.role,
+                position: 4,
+                personId: 11111111111,
+                phoneNumber: config.phoneNumber,
+                birthday: date,
+                idManager: 0
+
+            }
+        });
+    });
 
 module.exports = Staff

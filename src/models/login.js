@@ -3,22 +3,21 @@ const jwt = require('jsonwebtoken');
 
 
 
-async function login(req, res){
-    const {email, password} = req.body;
+async function login(req, res, body){
     let data;
     try {
-        if (!email || !password)
+        if (!body.email || !body.password)
             res.send('email and password are required');
 
         let staff = await Staff.findOne({
-            where: {email},
+            where: {email: body.email},
         });
-        if (!staff || !staff.comparePassword(password))
+        if (!staff || !staff.comparePassword(body.password))
             res.send('Wrong email or password');
 
         await Staff.findOne({
             where: {
-                email
+                email: body.email
             },
         })
         .then(result => {
@@ -62,9 +61,17 @@ async function checkLogin(req, res, next){
     }
 }
 
-
+async function checkRoleAdmin(req, res, next){
+    const position = req.data.position;
+    if( position === '4') {
+        next()
+    } else {
+        res.json('NOT PERMISSION');
+    }
+}
 
 module.exports = {
     login,
     checkLogin,
+    checkRoleAdmin
 }
